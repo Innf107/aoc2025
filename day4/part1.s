@@ -14,7 +14,7 @@ read_char:
     mov rsi, input_buffer
     mov rdx, 4096
     syscall
-
+    
     mov r15, rax
 
     test rax, rax
@@ -129,10 +129,10 @@ shift_and_reset:
     ; then reset what is *now* in next_line_spaces (in rbx)
     lea rcx, [rbx+line_length] ; save the address one past the last element so we know when to stop
 
-    ; (technically we could use SIMD here but that's confusing sooo it's just SWAR for now i guess)
     .zero_loop:
-    mov QWORD [rbx], 0
-    add rbx, 8
+    ; ymm0 is never used so it's always 0 here
+    vmovdqu [rbx], ymm0
+    add rbx, 32
     cmp rbx, rcx
     jl .zero_loop
 
