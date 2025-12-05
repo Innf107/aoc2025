@@ -291,7 +291,7 @@ _start:
 
 section .data
     align 8
-    input_buffer: times 4096 db 0
+    input_buffer: times 8192 db 0
     input_file: db "input.txt", 0
     
     align 8
